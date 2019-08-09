@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 00:04:40 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/07 08:31:25 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/09 05:01:35 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int get_light(int start, int end, double percentage)
 	return ((int)((1 - percentage) * start + percentage * end));
 }
 
-int get_color(int current, t_info start, t_info end, int i)
+int 	get_color(int current, t_info start, t_info end, int i)
 {
 	int		red;
 	int		green;
@@ -130,4 +130,31 @@ int get_color(int current, t_info start, t_info end, int i)
 	blue = get_light(start.color & 0xFF, end.color & 0xFF, percentage);
 	//printf("%d\n", (red << 16) | (green << 8) | blue); something wrong to fix here
 	return ((red << 16) | (green << 8) | blue);
+}
+
+void	set_color(t_array grid, int *x_line)
+{
+	size_t	i;
+	t_info	t1;
+	t_info	t2;
+
+	t1.z = 0;
+	t2.z = 15;
+	t1.color = 65280;
+	t2.color = 16187906;
+	i = -1;
+	while (++i < grid.length)
+	{
+		*x_line = i;
+		if (((t_info*)grid.ptr)[i].y == 1 && ((t_info*)grid.ptr)[i].x == 0)
+			break;
+	}
+	i = -1;
+	while (++i < grid.length)
+	{
+		if (((t_info*)grid.ptr)[i].color == -1)
+			((t_info*)grid.ptr)[i].color = get_color(((t_info*)grid.ptr)[i].z, t1, t2, -1);
+		((t_info*)grid.ptr)[i].x -= *x_line / 2; // dont know if it really matter
+		((t_info*)grid.ptr)[i].y -= (grid.length / *x_line) / 2;//same
+	}
 }

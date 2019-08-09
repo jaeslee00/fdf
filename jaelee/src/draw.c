@@ -6,13 +6,13 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 04:05:06 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/07 07:38:03 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/09 07:52:55 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	iso(t_info *(*to_draw), int size)
+void	iso(t_info *(*to_draw), int size, int T[3])
 {
 	int	x;
 	int y;
@@ -25,17 +25,18 @@ void	iso(t_info *(*to_draw), int size)
 		y = -(*to_draw)[i].z + ((*to_draw)[i].x + (*to_draw)[i].y) * sin(M_PI / 6.0f);
 		(*to_draw)[i].x = x;
 		(*to_draw)[i].y = y;
-		(*to_draw)[i] = translation((*to_draw)[i], 400, 400, 0);
+		(*to_draw)[i] = translation((*to_draw)[i], T[0]/*(X_SCREEN - X_INSTRUCTION) / 2 + X_INSTRUCTION*/ , T[1] /*Y_SCREEN / 2*/, 0);//! translate it to the centre need to be changed
 	}
 }
 
-void	draw(t_info *to_draw, int x_line, int size, void *mlx_ptr, void *win_ptr)
+void	draw(t_info *to_draw, int T[3], int size, void *mlx_ptr, void *win_ptr)
 {
 	int	x;
 	int	y;
 
+	int x_line = T[2];
 	y = -1;
-	iso(&to_draw, size);
+	iso(&to_draw, size, T);
 	while (++y < size / x_line)
 	{
 		x = -1;
