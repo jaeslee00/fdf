@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 03:50:53 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/14 05:01:36 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/14 23:10:09 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static double	color_scale(int start, int end, int current, double offset)
 	if ((distance = end - start) == 0)
 		return (1);
 	trans = (distance * 0.5) * offset;
-	p = (1.0 + exp((-((placement + trans) * 8.0 / distance) - 4.0)));
+	p = (1.0 + exp((-((placement + trans) * 10.0 / distance) - 5.0)));
 	percent = 1.0 / p;
 	return (percent);
 }
